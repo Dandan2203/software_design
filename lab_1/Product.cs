@@ -9,10 +9,10 @@ namespace lab_1
     public class Product
     {
         public string Name { get; set; }
-        public Money Price { get; private set; }
+        public Money Price { get; set; }
         public int Quantity { get; set; }
 
-        public Product(string name, Money price, int quantity)
+        public Product(string name, Money price, int quantity = 1)
         {
             Name = name;
             Price = price;
@@ -22,12 +22,14 @@ namespace lab_1
         public void ReducePrice(int whole, int coins)
         {
             Money newPrice = new Money(Price.WholePart - whole, Price.CoinsPart - coins);
-            if (newPrice.WholePart >= 0 && (newPrice.WholePart > 0 || newPrice.CoinsPart >= 0))
+            if (newPrice.WholePart < 0 || (newPrice.WholePart == 0 && newPrice.CoinsPart < 0))
+            {
+                Console.WriteLine("Зменшення ціни неможливе: нова ціна нижча від нуля.");
+            }
+            else
             {
                 Price = newPrice;
             }
-            else
-                Console.WriteLine("Неможливо знизити ціну: нова ціна менша 0.");
         }
     }
 

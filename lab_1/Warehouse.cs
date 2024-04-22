@@ -8,38 +8,32 @@ namespace lab_1
 {
     public class Warehouse
     {
-        public Dictionary<Product, int> Inventory { get; private set; } = new Dictionary<Product, int>();
+        public Dictionary<Product, int> Products { get; private set; } = new Dictionary<Product, int>();
+        private List<string> ChangeLog = new List<string>();
 
         public void AddProduct(Product product, int quantity)
         {
-            if (Inventory.ContainsKey(product))
-                Inventory[product] += quantity;
+            if (Products.ContainsKey(product))
+                Products[product] += quantity;
             else
-                Inventory.Add(product, quantity);
-            Console.WriteLine($"Товар {product.Name} поповнено на {quantity} шт. Загальна кількість: {Inventory[product]}");
+                Products.Add(product, quantity);
+            ChangeLog.Add($"Товар {product.Name} поповнено на {quantity} одиниць.");
         }
 
-        public bool RemoveProduct(Product product, int quantity)
+        public void RemoveProduct(Product product, int quantity)
         {
-            if (Inventory.ContainsKey(product) && Inventory[product] >= quantity)
+            if (Products.ContainsKey(product) && Products[product] >= quantity)
             {
-                Inventory[product] -= quantity;
-                Console.WriteLine($"Товар {product.Name} зменшено на {quantity} шт. Залишок: {Inventory[product]}");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine($"Недостатньо товару {product.Name} на складі.");
-                return false;
+                Products[product] -= quantity;
+                ChangeLog.Add($"Товар {product.Name} видалено на {quantity} одиниць.");
             }
         }
 
-        public void DisplayInventory()
+        public void PrintChangeLog()
         {
-            Console.WriteLine("Складські запаси:");
-            foreach (var item in Inventory)
+            foreach (string log in ChangeLog)
             {
-                Console.WriteLine($"{item.Key.Name}: {item.Value} шт.");
+                Console.WriteLine(log);
             }
         }
     }

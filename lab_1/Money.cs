@@ -11,15 +11,15 @@ namespace lab_1
         public int WholePart { get; private set; }
         public int CoinsPart { get; private set; }
 
-        public Money(int wholePart, int coinsPart)
+        public Money(int whole, int coins)
         {
-            SetMoney(wholePart, coinsPart);
+            SetMoney(whole, coins);
         }
 
-        public void SetMoney(int wholePart, int coinsPart)
+        public void SetMoney(int whole, int coins)
         {
-            WholePart = wholePart;
-            CoinsPart = coinsPart;
+            WholePart = whole;
+            CoinsPart = coins;
             Normalize();
         }
 
@@ -28,13 +28,13 @@ namespace lab_1
             if (CoinsPart >= 100)
             {
                 WholePart += CoinsPart / 100;
-                CoinsPart %= 100;
+                CoinsPart = CoinsPart % 100;
             }
         }
 
-        public override string ToString()
+        public void Display()
         {
-            return $"{WholePart}.{CoinsPart:D2}";
+            Console.WriteLine($"{WholePart} грн. {CoinsPart:D2} коп.");
         }
     }
 }

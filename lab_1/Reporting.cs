@@ -17,20 +17,14 @@ namespace lab_1
 
         public void RegisterArrival(Product product, int quantity)
         {
+            Console.WriteLine($"Реєстрація надходження товару: {product.Name}, кількість: {quantity}");
             warehouse.AddProduct(product, quantity);
-            Console.WriteLine($"Реєстрація надходження товару {product.Name}, кількість: {quantity}");
         }
 
         public void RegisterShipment(Product product, int quantity)
         {
-            if (warehouse.RemoveProduct(product, quantity))
-                Console.WriteLine($"Реєстрація відвантаження товару {product.Name}, кількість: {quantity}");
-        }
-
-        public void InventoryReport()
-        {
-            warehouse.DisplayInventory();
+            Console.WriteLine($"Реєстрація відвантаження товару: {product.Name}, кількість: {quantity}");
+            warehouse.RemoveProduct(product, quantity);
         }
     }
-
 }
